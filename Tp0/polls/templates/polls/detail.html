@@ -1,1 +1,7 @@
-{{question}}
+<h1>{{ question.question_text }}</h1>
+<ul>
+{% comment %} recorre las opciones de la pregunta y las muestra en una lista {% endcomment %}
+{% for choice in question.choice_set.all %}
+    <li>{{ choice.choice_text }}</li>
+{% endfor %}
+</ul>

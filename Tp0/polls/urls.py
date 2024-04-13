@@ -10,16 +10,8 @@ from . import views
 # es como los controllers de laravel o los controladores de spring o .net core
 app_name = "polls"
 urlpatterns = [
-    path('', views.index, name='index'),
-    # path("specifics/<int:question_id>/", views.detail, name="detail"),
-
-    # defino la ruta detail con el parametro question_id y le asigno la vista detail, con nombre detail
-    # cambio el path para que lo codifique en la url
-    path('<int:question_id>/', views.detail, name='detail'),
-
-    # defino la ruta results con el parametro question_id y le asigno la vista results, con nombre results
-    path('<int:question_id>/results/', views.results, name='results'),
-    # defino la ruta vote con el parametro question_id y le asigno la vista vote, con nombre vote
-    path('<int:question_id>/vote/', views.vote, name='vote'),
-
+  path("", views.IndexView.as_view(), name="index"),
+    path("<int:pk>/", views.DetailView.as_view(), name="detail"),
+    path("<int:pk>/results/", views.ResultsView.as_view(), name="results"),
+    path("<int:question_id>/vote/", views.vote, name="vote"),
 ]

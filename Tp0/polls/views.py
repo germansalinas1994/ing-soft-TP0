@@ -8,11 +8,20 @@ from .models import Question
 def index(request):
     # aca traigo las ultimas 5 preguntas que se crearon ordenadas por fecha de publicacion
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    # aca armo un string con las preguntas separadas por coma
-    # el join es un metodo de los strings que une los elementos de una lista con un separador
-    output = ", ".join([q.question_text for q in latest_question_list])
-    # devuelvo la respuesta
-    return HttpResponse(output)
+
+    # aca cargo el template que se va a utilizar
+    template = loader.get_template('polls/index.html')
+
+    # armo el contexto que se va a utilizar en el template, seria el diccionario 
+    # con el objeto que se va a utilizar en el template
+    context = {
+        'latest_question_list': latest_question_list,
+    }
+    # devuelvo la respuesta, en lugar de hacerlo desde http lo hago desde render
+    # return HttpResponse(template.render(context, request))
+
+    # renderiza el template con el contexto y devuelve la respuesta
+    return render(request, 'polls/index.html', context)
 
 # esta funcion recibe como parametro el question_id que se pasa por la url
 # y devuelve un mensaje con el id de la pregunta
